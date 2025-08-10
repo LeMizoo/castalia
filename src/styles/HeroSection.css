@@ -1,0 +1,13 @@
+.hero-section {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding: 4rem 2rem;
+    color: white;
+  }
+  
+  .hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 8px;
+  }

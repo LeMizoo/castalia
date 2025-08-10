@@ -1,0 +1,105 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 📽️ Slides – accès public + écriture par utilisateurs connectés
+    match /slides/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // 👤 Infos des membres
+    match /membres/{userId} {
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
+    }
+
+    // 🔐 Zone Admin
+    match /adminZone/{docId} {
+      allow read, write: if request.auth != null &&
+        get(/databases/$(database)/documents/membres/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    // 🖼️ Médias
+    match /media/{mediaId} {
+      allow read: if isViewerOrSharedOrUploader();
+      allow write: if isAdminUploader();
+      allow delete: if canDeleteMedia();
+
+      function isViewerOrSharedOrUploader() {
+        return request.auth != null &&
+          (
+            resource.data.visibility == "shared" ||
+            request.auth.uid == resource.data.uploadedBy ||
+            (resource.data.allowedRoles != null &&
+             request.auth.token.role in resource.data.allowedRoles)
+          );
+      }
+
+      function isAdminUploader() {
+        return request.auth != null &&
+          (
+            request.auth.uid == resource.data.uploadedBy ||
+            (resource.data.allowedRoles != null &&
+             "admin" in resource.data.allowedRoles &&
+             request.auth.token.role == "admin")
+          );
+      }
+
+      function canDeleteMedia() {
+        return request.auth != null &&
+          (
+            request.auth.uid == resource.data.uploadedBy ||
+            request.auth.token.role == "admin"
+          );
+      }
+    }
+
+    // 📁 Catégories
+    match /categories/{categoryId} {
+      allow read: if request.auth != null;
+      allow write, delete: if request.auth.token.role == "admin";
+    }
+
+    // 📬 Messages
+    match /messages/{msgId} {
+      allow create: if request.auth != null;
+      allow read, delete: if request.auth.token.role == "admin";
+    }
+
+    // 💬 Commentaires
+    match /comments/{commentId} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow delete: if request.auth != null &&
+        (
+          request.auth.uid == resource.data.createdBy ||
+          request.auth.token.role == "admin"
+        );
+    }
+
+    // 📤 Uploads
+    match /uploads/{uploadId} {
+      allow read, write: if request.auth != null &&
+        request.auth.uid == resource.data.ownerId;
+      allow delete: if request.auth.token.role == "admin";
+    }
+
+    // 🏷️ Tags
+    match /tags/{tagId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth.token.role == "admin";
+    }
+
+    // 🖼️ Galerie (lecture par utilisateurs authentifiés)
+    match /gallery/{docId} {
+      allow read: if request.auth != null;
+    }
+
+    // 🌐 Fallback général
+    match /{document=**} {
+      allow read: if request.auth != null;
+    }
+
+  }
+}

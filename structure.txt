@@ -1,0 +1,102 @@
+Structure du dossier
+Le numéro de série du volume est 6C50-A244
+F:.
+|   .env
+|   .env.local
+|   .firebaserc
+|   .gitignore
+|   create-admin-table.ps1
+|   create-all.ps1
+|   create-auth-pages.ps1
+|   create-component.ps1
+|   create-media-grid.ps1
+|   create-pages.ps1
+|   create-protected-route.ps1
+|   firebase.json
+|   firestore.indexes.json
+|   firestore.rules
+|   index.html
+|   package-lock.json
+|   package.json
+|   README.md
+|   structure.txt
+|   vite.config.js
+|   
++---public
+|       favicon.ico
+|       
++---scripts
+\---src
+    |   App.jsx
+    |   main.jsx
+    |   MainRouter.jsx
+    |   
+    +---assets
+    |   +---audio
+    |   +---images
+    |   +---textures
+    |   \---video
+    +---components
+    |   |   ArticleCard.jsx
+    |   |   
+    |   +---admin
+    |   |       AdminTable.jsx
+    |   |       
+    |   +---auth
+    |   |       Login.jsx
+    |   |       ProtectedRoute.jsx
+    |   |       Register.jsx
+    |   |       
+    |   +---layout
+    |   +---media
+    |   |       MediaGrid.jsx
+    |   |       MediaUploader.jsx
+    |   |       
+    |   +---nav
+    |   |       NavBar.jsx
+    |   |       
+    |   +---ui
+    |   |       FounderCard.jsx
+    |   |       HeroSection.jsx
+    |   |       SanctuaryMap.jsx
+    |   |       SpiritualReflection.jsx
+    |   |       TestimonyCard.jsx
+    |   |       
+    |   \---user
+    |           EspaceMembre.jsx
+    |           Profil.jsx
+    |           
+    +---context
+    |       AuthContext.jsx
+    |       
+    +---data
+    |       articles.json
+    |       imageMeta.json
+    |       
+    +---firebase
+    |       Admin.jsx
+    |       seedMedia.js
+    |       
+    +---hooks
+    |       useAuth.js
+    |       
+    +---lib
+    |       firebase.js
+    |       
+    +---pages
+    |       .jsx
+    |       Articles.jsx
+    |       DashboardAdmin.jsx
+    |       EspaceMembre.jsx
+    |       Home.jsx
+    |       Media.jsx
+    |       NotFound.jsx
+    |       
+    +---styles
+    |       artistic.css
+    |       style.css
+    |       theme.css
+    |       
+    \---utils
+            helpers.js
+            
