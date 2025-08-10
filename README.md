@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Castalia – Structure des scripts PowerShell
 
 📅 Généré automatiquement le `2025-08-10 12:45:32`
@@ -45,3 +46,7 @@ Ce fichier récapitule l’ensemble des scripts organisés par catégorie, avec 
 ---
 
 _Ce fichier est généré automatiquement par `create-all.ps1`. Ne pas modifier manuellement._
+=======
+# castalia
+Application Web dynamique cast by Gagooz
+>>>>>>> 41435aa3640ada08ea5183d553e822dd3021875f
